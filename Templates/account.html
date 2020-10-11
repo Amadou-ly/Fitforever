@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<title>FitForever.com | Fitness Apparels</title>
+	<link rel="shortcut icon" href="/static/Image/logo1.png">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="static/Style/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/static/Style/font-awesome.min.css"/>
+	<link rel="stylesheet" href="/static/Style/flaticon.css"/>
+	<link rel="stylesheet" href="/static/Style/slicknav.min.css"/>
+	<link rel="stylesheet" href="/static/Style/jquery-ui.min.css"/>
+	<link rel="stylesheet" href="/static/Style/owl.carousel.min.css"/>
+	<link rel="stylesheet" href="/static/Style/animate.css"/>
+	<link rel="stylesheet" href="/static/Style/style.css"/>
+
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header section -->
+	<header class="header-section">
+		<div class="header-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-2 text-center text-lg-left">
+						<!-- logo -->
+						<a href="{% url 'index' %}" class="site-logo">
+							<img src="/static/Image/logo1.png" height="80" alt="">
+						</a>
+					</div>
+					<div class="col-xl-6 col-lg-5">
+						<form class="header-search-form" method="GET" action="search">
+							<input type="text" placeholder="Search on Fit Forever ...." name="q" value="{{ request.GET.q }}">
+							<button><i class="flaticon-search"></i></button>
+						</form>
+					</div>
+					<div class="col-xl-4 col-lg-5">
+						<div class="user-panel">
+							<div class="up-item">
+								{% if 'user_id' in request.session %}
+								<a href="{% url 'account' %}"><i class="flaticon-profile"></i></a>
+								<a href="{% url 'account' %}">Hello, <strong>{{request.session.last_name}}</strong></a>
+								&nbsp
+								<a href="{% url 'logout' %}">Logout</a>
+								{% else %}
+								<br>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'login' %}">Log In</a>&nbsp;/&nbsp;
+								<a href="{% url 'signup' %}">Create Account</a>
+								{% endif %}
+
+							</div>
+							{% if 'user_id' in request.session %}
+							<div class="up-item">
+								<div class="shopping-card">
+									<i class="flaticon-bag"></i>
+									<span>{{ count }}</span>
+								</div>
+								<a href="{% url 'cart' %}">Shopping Cart</a>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<nav class="main-navbar">
+			<div class="container">
+				<!-- menu -->
+				<ul class="main-menu">
+					<li><a href="{% url 'index' %}">Home</a></li>
+					{% if 'user_id' in request.session %}
+					<li><a href="{% url 'account' %}">Account</a>
+						<ul class="sub-menu">
+                            <li><a href="{% url 'account' %}">View Profile</a></li>
+							<li><a href="{% url 'cart' %}">Your Cart</a></li>
+                    		<li><a href="{% url 'display_orders' %}">Your Orders</a></li>
+							<li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+                            <li><a href="{% url 'logout' %}">Logout</a></li>
+
+						</ul>
+					</li>
+					{% endif %}
+
+					{% for category in categories %}
+						{% if category.sub|length != 0  %}
+
+					<li><a href="{% url 'category' category.cat.category_id %}">{{category.cat.name}}</a>
+						<ul class="sub-menu">
+
+							{% for sub in category.sub %}
+
+							<li><a href="{% url 'subcategory' category.cat.category_id sub.subcategory_id %}">{{sub.name}}</a></li>
+
+							{% endfor %}
+
+						</ul>
+					</li>
+
+					{% else %}
+
+					<li><a href="{% url 'category' category.cat.category_id %}">{{category.cat.name}}</a></li>
+					{% endif %}
+
+					{% endfor %}
+
+
+					{% if 'user_id' in request.session %}
+					<li><a href="{% url 'cart' %}">Your Cart</a></li>
+					<li><a href="{% url 'blog' %}">Blog</a>
+						<ul class="sub-menu">
+							<li><a href="{% url 'blog' %}">Read Blogs</a></li>
+							<li><a href="{% url 'write' %}">Write a Blog</a></li>
+						</ul>
+					</li>
+					<li><a href="{% url 'contact' %}">Contact Us</a></li>
+					{% else %}
+					<li><a href="{% url 'blog' %}">Blog</a>
+						<ul class="sub-menu">
+							<li><a href="{% url 'blog' %}">Read Blogs</a></li>
+							{% if 'user_id' in request.session %}
+							<li><a href="{% url 'write' %}">Write a Blog</a></li>
+							{% else %}
+							<li><a href="{% url 'login' %}">Login to write a Blog</a></li>
+							{% endif %}
+						</ul>
+					</li>
+					<li><a href="{% url 'contact' %}">Contact Us</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<!-- Header section end -->
+
+
+<br> <br> <br> <br> <br>
+    <div class="container emp-profile">
+            <form method="post">
+                <div class="row">
+                    {% for user in user %}
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h3>{{ user.username }}</h3>
+                                    <h4>{{ user.first_name }} {{ user.last_name }}</h4><br>
+                                    <p class="proile-rating">{{ user.email }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;{{ user.phone }}</p>
+                                    <p class="proile-rating">{{ user.address }}, {{ user.address2 }}</p>
+                                    <p class="proile-rating">{{ user.zipcode }}</p>
+                                    <p class="proile-rating">{{ user.country }}</p> <br> <br>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Your Orders</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Your Cart</a>
+                                </li>
+                            </ul> <br> <br>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="col-md-2">
+                        <a href="{% url 'edit_profile' %}">Edit Profile<a/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+													{% if display %}
+								<div class="table">
+									<div class="table" style="width:100%,vertical-align:center">
+										<table class="table-hover">
+										<thead>
+											<tr>
+												<th class="size-th">Date & Time of Order</th>
+												<th class="product-th">Product</th>
+												<th class="quy-th">Quantity</th>
+												<th class="total-th">Status</th>
+											</tr>
+										</thead>
+										<tbody>
+												{% for display in display %}
+											<tr>
+												<td class="size-col">
+													<div class="quantity left2">
+														<h4>{{ display.date }}<br><br>{{ display.time }}</h4>
+
+														<br>
+													</div>
+												</td>
+												<td class="product-col">
+													<div class="pc-title"><br>
+														<h6>{{ display.item }}</h6>
+													</div>
+													<img src="{{ display.image }}" alt="" height="180">
+													<br>
+													<br> <h6>₹ {{ display.price }}</h6>
+												</td>
+												<td class="quy-col">
+													<div class="quantity left2">
+														<h3>&nbsp;&nbsp;&nbsp;&nbsp;{{ display.quantity }}</h3>
+
+														<br>
+													</div>
+												</td>
+												<td class="total-col">
+													<div class="quantity left2">
+														<h4>{{ display.status }}</h4>
+
+														<br>
+													</div>
+												</td>
+											</tr>
+														{% endfor %}
+										</tbody>
+									</table>
+									</div>
+									<br>
+									<br>
+								</div>
+								{% else %}
+								<h3 style="margin-left: 300px;">You do not have any order yet</h3>
+								{% endif %}
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+													{% if bag %}
+									<div class="table">
+										<div class="table" style="width:100%">
+											<table class="table-hover">
+												<thead>
+													<tr>
+														<th class="product-th">Product</th>
+														<th class="quy-th">Quantity</th>
+														<th class="size-th">Size</th>
+														<th class="total-th">Amount</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for cart in cart %}
+													<tr>
+														<td class="product-col">
+															<div class="pc-title"><br>
+																<h6>{{ cart.itemname }}</h6>
+															</div>
+															<img src="{{ cart.image }}" alt="" height="180">
+															<br>
+															<br> <h6>₹ {{ cart.price }}</h6>
+														</td>
+														<td class="quy-col">
+															<div class="quantity left2">
+																<h3>{{ cart.quantity }}</h3>
+
+																<br>
+																<a href="{% url 'remove' cart.cart_id %}" class="btn remove btn-danger">Remove</a>
+															</div>
+														</td>
+														<td class="size-col"><h4><br><br><br><br>{{ cart.size }}</h4></td>
+														<td class="total-col"><h4><br><br><br><br>₹ {{ cart.total_cost }}</h4></td>
+													</tr>
+													{% endfor %}
+													<tr>
+																			{% if bag|length != 0  %}
+														<th class="product-th"><a href="{% url 'empty' %}" class="btn remove btn-danger">Empty Cart</a></th>
+														<th colspan="2" class="tot-th"><h4>Cart Total</h4></th>
+														<th class="product-th"><h4>₹ {{ prices }}</h4></th>
+															{% endif %}
+													</tr>
+												</tbody>
+											</table>
+										</div>
+											<br>
+											<br>
+									</div>
+										{% else %}
+										<h3 style="margin-left: 300px;">Your Shopping Cart is Empty</h3>
+										{% endif %}
+							</div>
+						</div>
+					</div>
+			</div>
+		</form>
+	</div>
+<br> <br> <br> <br> <br>
+
+
+	<!-- Footer section -->
+	<section class="footer-section">
+		<div class="container">
+			<div class="footer-logo text-center">
+				<a href="index.html"><img src="/static/Image/logo1.png" height="150" alt=""></a>
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget about-widget">
+						<h2>About</h2>
+						<p>Find the latest athletic wear and fitness apparels on FitForever.<br> Also choose from our all new range of Supplements.<br> Get all your fitness needs at Fitforever. </p>
+						<img src="/static/Image/cards.png" alt="">
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget about-widget">
+						<h2>Our Pages</h2>
+						<ul>
+							<li><a href="{% url 'contact' %}">Contact Us</a></li>
+							<li><a href="{% url 'blog' %}">Blog</a></li>
+							<li><a href="#">Category</a></li>
+							<li><a href="{% url 'cart' %}">Cart</a></li>
+
+
+						</ul>
+						<ul>
+							<li><a href="#">Men</a></li>
+							<li><a href="#">Women</a></li>
+							<li><a href="#">Supplements</a></li>
+							<li><a href="#">Shoes</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget contact-widget">
+						<h2>Contact Us</h2>
+						<div class="con-info">
+							<p>Fit Forever Ltd </p>
+						</div>
+						<div class="con-info">
+							<p>Whitefield main road, Bangalore, Karnataka, India </p>
+						</div>
+						<div class="con-info">
+							<p>+91 6360753920</p>
+						</div>
+						<div class="con-info">
+							<p>fitforever@gmail.com</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="social-links-warp">
+			<div class="container">
+				<div class="social-links">
+					<a href="https://www.instagram.com/" class="instagram"><i class="fa fa-instagram"></i><span>instagram</span></a>
+					<a href="https://in.pinterest.com/" class="pinterest"><i class="fa fa-pinterest"></i><span>pinterest</span></a>
+					<a href="https://www.facebook.com/" class="facebook"><i class="fa fa-facebook"></i><span>facebook</span></a>
+					<a href="https://twitter.com/" class="twitter"><i class="fa fa-twitter"></i><span>twitter</span></a>
+					<a href="https://www.youtube.com/" class="youtube"><i class="fa fa-youtube"></i><span>youtube</span></a>
+
+				</div>
+
+</div>
+		</div>
+	</section>
+	<!-- Footer section end -->
+
+	<!--====== Javascripts & Jquery ======-->
+	<script src="/static/js/jquery-3.2.1.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/jquery.slicknav.min.js"></script>
+	<script src="/static/js/owl.carousel.min.js"></script>
+	<script src="/static/js/jquery.nicescroll.min.js"></script>
+	<script src="/static/js/jquery.zoom.min.js"></script>
+	<script src="/static/js/jquery-ui.min.js"></script>
+	<script src="/static/js/main.js"></script>
+
+  </body>
+  </html>

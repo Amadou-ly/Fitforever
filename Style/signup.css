@@ -1,0 +1,233 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+#cssmenu,
+#cssmenu ul,
+#cssmenu ul li,
+#cssmenu ul li a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  line-height: 1;
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+h1{
+  color:white;
+  margin: 00px;
+
+}
+body{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+
+}
+.first{
+  background-color:inherit;
+  margin-left: 20px;
+  color:white ;
+  font-size: 30px;
+
+}
+
+.textbox{
+  margin-left: 80px;
+  width: 70%;
+  overflow:hidden;
+  font-size: 20px;
+  padding: 17px;
+  border-bottom: 1px solid white;
+  color: white;
+  margin-top: 30px;
+  font-stretch: extra-expanded;
+}
+
+.textbox input{
+  margin-bottom: 10px;
+  border: none;
+  outline: none;
+  background: none;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  width: 300px;
+  float: inherit;
+  margin: 1px 10px;
+  color: white;
+}
+.Forgot{
+  color: white;
+  margin-left: 100px;
+  margin-top: 60px;
+  cursor: pointer;
+
+  font-size: 20px;
+}
+.btn{
+  width: 60%;
+  background: none;
+  color: white;
+  padding:2px;
+  font-size: 30px;
+  cursor: pointer;
+  margin-top: 80px;
+  text-align: center;
+  margin-left: 100px;
+  height: 90px;
+}
+
+.btn input[type="button"]{
+  width: 150px;
+  height: 50px;
+  background-color: grey;
+  font-size: 25px;
+  color: black;
+
+}
+.User-box{
+  width: 500px;
+  height: 1200px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  top: 65%;
+  left: 50%;
+  margin-top: 700px;
+  margin-left: 700px;
+  transform: translate(-50%,-50%);
+  color: white;
+}
+.User-box h1{
+  margin-left: 170px;
+  font-size: 50px;
+  color: white;
+}
+.form{
+  margin-left: 60px;
+  width: 70%;
+  overflow:hidden;
+  font-size: 30px;
+  padding: 27px;
+  color: white;
+  margin-top: 00px;
+  height: 1000px;
+  font-stretch: extra-expanded;
+}
+.form input{
+  margin-bottom: 10px;
+  border: none;
+  outline: none;
+  background: none;
+  width: 100%;
+  text-align: center;
+  color: white;
+  border-bottom: 1px solid white;
+  padding: 30px;
+  font-size: 30px;
+  width: 300px;
+  float: inherit;
+  margin: 1px 10px;
+  color: white;
+}
+.form button{
+  padding: 20px;
+  width: 70%;
+  background-color: grey;
+  margin-left: 90px;
+  margin-top: 60px;
+  font-size: 25px;
+  color: white;
+  margin-left: 50px;
+}
+
+.message{
+font-size: 25px;
+margin-left: 5px;
+margin-top: 50px;
+color: white;
+width: 100%;
+}
+#cssmenu:after,
+#cssmenu > ul:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+#cssmenu {
+  width: auto;
+  border-bottom: 1px solid inherit;
+  font-family: Raleway, sans-serif;
+  line-height: 1;
+}
+#cssmenu ul {
+  background: rgba(0, 0, 0, 0.5);
+}
+#cssmenu > ul > li {
+  float: left;
+}
+#cssmenu.align-center > ul {
+  font-size: 0;
+  text-align: center;
+}
+#cssmenu.align-center > ul > li {
+  display: inline-block;
+  float: none;
+}
+#cssmenu.align-right > ul > li {
+  float: right;
+}
+#cssmenu.align-right > ul > li > a {
+  margin-right: 0;
+  margin-left: -4px;
+}
+#cssmenu > ul > li > a {
+  z-index: 2;
+  padding: 18px 25px 12px 25px;
+  font-size: 25px;
+  font-weight: 400;
+  text-decoration: none;
+  color: white;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  margin-right: -4px;
+}
+#cssmenu > ul > li.active > a,
+#cssmenu > ul > li:hover > a,
+#cssmenu > ul > li > a:hover {
+  color: #ffffff;
+}
+#cssmenu > ul > li > a:after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  width: 100%;
+  height: 120%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  content: "";
+  -webkit-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  -webkit-transform: perspective(5px) rotateX(2deg);
+  -webkit-transform-origin: bottom;
+  -moz-transform: perspective(5px) rotateX(2deg);
+  -moz-transform-origin: bottom;
+  transform: perspective(5px) rotateX(2deg);
+  transform-origin: bottom;
+}
+#cssmenu > ul > li:hover > a:after,
+#cssmenu > ul > li:hover > a:after,
+#cssmenu > ul > li > a:hover:after {
+  background: blue;
+}

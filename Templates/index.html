@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<title>FitForever.com | Fitness Apparels</title>
+	<meta charset="UTF-8">
+	<meta name="description" content=" Divisima | eCommerce Template">
+	<meta name="keywords" content="divisima, eCommerce, creative, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="/static/Image/logo1.png">
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="static/Style/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/static/Style/font-awesome.min.css"/>
+	<link rel="stylesheet" href="/static/Style/flaticon.css"/>
+	<link rel="stylesheet" href="/static/Style/slicknav.min.css"/>
+	<link rel="stylesheet" href="/static/Style/jquery-ui.min.css"/>
+	<link rel="stylesheet" href="/static/Style/owl.carousel.min.css"/>
+	<link rel="stylesheet" href="/static/Style/animate.css"/>
+	<link rel="stylesheet" href="/static/Style/style.css"/>
+
+
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+	{% block content %}
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header section -->
+	<header class="header-section">
+		<div class="header-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-2 text-center text-lg-left">
+						<!-- logo -->
+						<a href="{% url 'index' %}" class="site-logo">
+							<img src="/static/Image/logo1.png" height="80" alt="">
+						</a>
+					</div>
+					<div class="col-xl-6 col-lg-5">
+						<form class="header-search-form" method="GET" action="search">
+							<input type="text" placeholder="Search on Fit Forever ...." name="q" value="{{ request.GET.q }}">
+							<button><i class="flaticon-search"></i></button>
+						</form>
+					</div>
+					<div class="col-xl-4 col-lg-5">
+						<div class="user-panel">
+							<div class="up-item">
+								{% if 'user_id' in request.session %}
+								<a href="{% url 'account' %}"><i class="flaticon-profile"></i></a>
+								<a href="{% url 'account' %}">Hello, <strong>{{request.session.last_name}}</strong></a>
+								&nbsp
+								<a href="{% url 'logout' %}">Logout</a>
+								{% else %}
+								<br>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'login' %}">Log In</a>&nbsp;/&nbsp;
+								<a href="{% url 'signup' %}">Create Account</a>
+								{% endif %}
+
+							</div>
+							{% if 'user_id' in request.session %}
+							<div class="up-item">
+								<div class="shopping-card">
+									<i class="flaticon-bag"></i>
+									<span>{{ count }}</span>
+								</div>
+								<a href="{% url 'cart' %}">Shopping Cart</a>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<nav class="main-navbar">
+			<div class="container">
+				<!-- menu -->
+				<ul class="main-menu">
+					<li><a href="{% url 'index' %}">Home</a></li>
+					{% if 'user_id' in request.session %}
+					<li><a href="{% url 'account' %}">Account</a>
+						<ul class="sub-menu">
+                            <li><a href="{% url 'account' %}">View Profile</a></li>
+							<li><a href="{% url 'cart' %}">Your Cart</a></li>
+                    		<li><a href="{% url 'display_orders' %}">Your Orders</a></li>
+							<li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+                            <li><a href="{% url 'logout' %}">Logout</a></li>
+
+						</ul>
+					</li>
+					{% endif %}
+
+					{% for category in categories %}
+						{% if category.sub|length != 0  %}
+
+					<li><a href="{% url 'category' category.cat.category_id %}">{{category.cat.name}}</a>
+						<ul class="sub-menu">
+
+							{% for sub in category.sub %}
+
+							<li><a href="{% url 'subcategory' category.cat.category_id sub.subcategory_id %}">{{sub.name}}</a></li>
+
+							{% endfor %}
+
+						</ul>
+					</li>
+
+					{% else %}
+
+					<li><a href="{% url 'category' category.cat.category_id %}">{{category.cat.name}}</a></li>
+					{% endif %}
+
+					{% endfor %}
+
+
+					{% if 'user_id' in request.session %}
+					<li><a href="{% url 'cart' %}">Your Cart</a></li>
+					<li><a href="{% url 'blog' %}">Blog</a>
+						<ul class="sub-menu">
+							<li><a href="{% url 'blog' %}">Read Blogs</a></li>
+							<li><a href="{% url 'write' %}">Write a Blog</a></li>
+						</ul>
+					</li>
+					<li><a href="{% url 'contact' %}">Contact Us</a></li>
+					{% else %}
+					<li><a href="{% url 'blog' %}">Blog</a>
+						<ul class="sub-menu">
+							<li><a href="{% url 'blog' %}">Read Blogs</a></li>
+							{% if 'user_id' in request.session %}
+							<li><a href="{% url 'write' %}">Write a Blog</a></li>
+							{% else %}
+							<li><a href="{% url 'login' %}">Login to write a Blog</a></li>
+							{% endif %}
+						</ul>
+					</li>
+					<li><a href="{% url 'contact' %}">Contact Us</a></li>
+					{% endif %}
+
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<!-- Header section end -->
+
+
+
+	<!-- Hero section -->
+	<section class="hero-section">
+		<div class="hero-slider owl-carousel">
+			<div class="hs-item set-bg" data-setbg="/static/Image//bg4.jpg">
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-6 col-lg-7 text-white">
+							<span>New Arrivals</span>
+							<h2>Athletic Shorts</h2>
+							<p>Leg day, today? Check out our selection of sport and gym shorts. From cycling shorts, to running and compression shorts, no matter what your sport is, this range has got you covered. Our well-designed sports attire is performance ready & technology driven. </p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="hs-item set-bg" data-setbg="/static/Image/woman.jpg">
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-6 col-lg-7 text-white">
+							<span>New Arrivals</span>
+							<h2>Women's Tank Tops</h2>
+							<p>Looking for an athletic and comfortable high top as a woman, we got you covered. Select from our wide range of tank tops. Our tank gives support and an unmatched comfort.</p>
+
+							</select>  </p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="slide-num-holder" id="snh-1"></div>
+		</div>
+	</section>
+	<!-- Hero section end -->
+
+
+
+	<!-- Features section -->
+	<section class="features-section">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4 p-0 feature">
+					<div class="feature-inner">
+						<div class="feature-icon">
+							<img src="/static/Image/icons/1.png" alt="#">
+						</div>
+						<h2>Fast Secure Payments</h2>
+					</div>
+				</div>
+				<div class="col-md-4 p-0 feature">
+					<div class="feature-inner">
+						<div class="feature-icon">
+							<img src="/static/Image/icons/2.png" alt="#">
+						</div>
+						<h2>Premium Products</h2>
+					</div>
+				</div>
+				<div class="col-md-4 p-0 feature">
+					<div class="feature-inner">
+						<div class="feature-icon">
+							<img src="/static/Image/icons/3.png" alt="#">
+						</div>
+						<h2>Free & fast Delivery</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Features section end -->
+
+
+	<!-- latest product section -->
+	<section class="top-letest-product-section">
+		<div class="container">
+			<div class="section-title">
+				<h2>LATEST PRODUCTS</h2>
+			</div>
+			<div class="product-slider owl-carousel">
+				{% for product in products %}
+				<div class="product-item">
+					<div class="pi-pic">
+						<a href="{% url 'product' product.prod.item_id %}"><img src="/{{ product.prod.avatar }}" alt="" height="350"></a>
+						<div class="pi-links">
+							<a href="{% url 'product' product.prod.item_id %}" class="add-card"><i class="flaticon-bag"></i><span>BUY NOW</span></a>
+						</div>
+					</div>
+					<div class="pi-text">
+							<h6 class="text-primary">₹ {{ product.discount }} <strike class="text-secondary">₹ {{ product.prod.price }}</strike> </h6>
+						<a href="{% url 'product' product.prod.item_id %}"><p>{{ product.prod.title }}</p></a>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+
+	<!-- latest product section end -->
+
+	<!-- Product filter section -->
+	<section class="product-filter-section">
+		<div class="container">
+			<div class="section-title">
+				<h2>BROWSE TOP SELLING PRODUCTS</h2>
+			</div>
+			<div class="row">
+						{% for product in products %}
+				<div class="col-lg-3 col-sm-6">
+					<div class="product-item">
+						<div class="pi-pic">
+							<a href="{% url 'product' product.prod.item_id %}"><img src="/{{ product.prod.avatar }}" alt="" height="350"></a>
+							<div class="pi-links">
+								<a href="{% url 'product' product.prod.item_id %}" class="add-card"><i class="flaticon-bag"></i><span>BUY NOW</span></a>
+							</div>
+						</div>
+						<div class="pi-text">
+							<h6 class="text-primary">₹ {{ product.discount }} <strike class="text-secondary">₹ {{ product.prod.price }}</strike> </h6>
+							<a href="{% url 'product' product.prod.item_id %}"><p>{{ product.prod.title }}</p></a>
+						</div>
+					</div>
+				</div>
+							{% endfor %}
+			</div>
+		</div>
+	</section>
+	<!-- Product filter section end -->
+
+	<!-- Footer section -->
+	<section class="footer-section">
+		<div class="container">
+			<div class="footer-logo text-center">
+				<a href="index.html"><img src="/static/Image/logo1.png" height="150" alt=""></a>
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget about-widget">
+						<h2></h2>
+						<p>Find the latest athletic wear and fitness apparels on FitForever.<br> Also choose from our all new range of Supplements.<br> Get all your fitness needs at Fitforever. </p>
+						<img src="/static/Image/cards.png" alt="">
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget about-widget">
+						<h2></h2>
+						<ul>
+							<li><a href="{% url 'contact' %}">Contact Us</a></li>
+							<li><a href="{% url 'blog' %}">Blog</a></li>
+							<li><a href="{% url 'account' %}">Your Account</a></li>
+							<li><a href="{% url 'cart' %}">Cart</a></li>
+						</ul>
+						<ul>
+							<li><a href="#">Men</a></li>
+							<li><a href="#">Women</a></li>
+							<li><a href="#">Supplements</a></li>
+							<li><a href="#">Shoes</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget contact-widget">
+						<h2></h2>
+						<div class="con-info">
+							<p>Fit Forever Ltd </p>
+						</div>
+						<div class="con-info">
+							<p>Whitefield main road, Bangalore, Karnataka, India </p>
+						</div>
+						<div class="con-info">
+							<p>+91 6360753920</p>
+						</div>
+						<div class="con-info">
+							<p>fitforever@gmail.com</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="social-links-warp">
+			<div class="container">
+				<div class="social-links">
+					<a href="https://www.instagram.com/" class="instagram"><i class="fa fa-instagram"></i><span>instagram</span></a>
+					<a href="https://in.pinterest.com/" class="pinterest"><i class="fa fa-pinterest"></i><span>pinterest</span></a>
+					<a href="https://www.facebook.com/" class="facebook"><i class="fa fa-facebook"></i><span>facebook</span></a>
+					<a href="https://twitter.com/" class="twitter"><i class="fa fa-twitter"></i><span>twitter</span></a>
+					<a href="https://www.youtube.com/" class="youtube"><i class="fa fa-youtube"></i><span>youtube</span></a>
+
+				</div>
+
+</div>
+		</div>
+	</section>
+	<!-- Footer section end -->
+
+
+
+	<!--====== Javascripts & Jquery ======-->
+	<script src="/static/js/jquery-3.2.1.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/jquery.slicknav.min.js"></script>
+	<script src="/static/js/owl.carousel.min.js"></script>
+	<script src="/static/js/jquery.nicescroll.min.js"></script>
+	<script src="/static/js/jquery.zoom.min.js"></script>
+	<script src="/static/js/jquery-ui.min.js"></script>
+	<script src="/static/js/main.js"></script>
+	{% endblock content %}
+	</body>
+</html>

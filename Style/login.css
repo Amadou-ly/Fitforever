@@ -1,0 +1,196 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+#cssmenu,
+#cssmenu ul,
+#cssmenu ul li,
+#cssmenu ul li a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  line-height: 1;
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+h1{
+  color:white;
+  margin: 20px;
+
+}
+body{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  color: black;
+}
+.first{
+  background-color:inherit;
+  margin-left: 20px;
+  color:white;
+  font-size: 30px;
+
+}
+.User-box{
+  width: 500px;
+  height: 650px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  top: 55%;
+  left: 50%;
+  margin-top: 500px;
+  margin-left: 700px;
+  transform: translate(-50%,-50%);
+  color: white;
+}
+.User-box h1{
+  font-size: 50px;
+  color: white;
+  margin-left: 170px;
+}
+.login-form input{
+  margin-bottom: 10px;
+  border: none;
+  outline: none;
+  background: none;
+  width: 100%;
+  text-align: center;
+  color: white;
+  border-bottom: 1px solid white;
+  padding: 30px;
+  font-size: 30px;
+  width: 300px;
+  float: inherit;
+  margin: 1px 10px;
+  margin-left: 100px;
+}
+.message1{
+  font-size: 25px;
+  margin-left: 80px;
+  margin-top: 00px;
+  color: white;
+  width: 100%;
+}
+.login-form button{
+  padding: 20px;
+  width: 50%;
+  background-color: grey;
+  margin-left: 125px;
+  margin-top: 60px;font-size: 25px;
+}
+.register{
+  margin-bottom: 10px;
+  border: none;
+  outline: none;
+  background: none;
+  width: 100%;
+  text-align: center;
+  color: white;
+
+  padding: 20px;
+  font-size: 30px;
+  width: 300px;
+  float: inherit;
+  margin: 1px 10px;
+  color: white;
+  margin-left: 00px;
+}
+.register input{
+  margin-bottom: 10px;
+  border: none;
+  outline: none;
+  background: none;
+  width: 100%;
+  text-align: center;
+  color: white;
+  border-bottom: 1px solid white;
+  padding: 30px;
+  font-size: 30px;
+  width: 300px;
+  float: inherit;
+  margin: 1px 10px;
+  color: white;
+  margin-left: 60px;
+}
+#cssmenu:after,
+#cssmenu > ul:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+#cssmenu {
+  width: auto;
+  border-bottom: 1px solid inherit;
+  font-family: Raleway, sans-serif;
+  line-height: 1;
+}
+#cssmenu ul {
+  background: rgba(0, 0, 0, 0.5);
+}
+#cssmenu > ul > li {
+  float: left;
+}
+#cssmenu.align-center > ul {
+  font-size: 0;
+  text-align: center;
+}
+#cssmenu.align-center > ul > li {
+  display: inline-block;
+  float: none;
+}
+#cssmenu.align-right > ul > li {
+  float: right;
+}
+#cssmenu.align-right > ul > li > a {
+  margin-right: 0;
+  margin-left: -4px;
+}
+#cssmenu > ul > li > a {
+  z-index: 2;
+  padding: 18px 25px 12px 25px;
+  font-size: 25px;
+  font-weight: 400;
+  text-decoration: none;
+  color: white;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  margin-right: -4px;
+}
+#cssmenu > ul > li.active > a,
+#cssmenu > ul > li:hover > a,
+#cssmenu > ul > li > a:hover {
+  color: #ffffff;
+}
+#cssmenu > ul > li > a:after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  width: 100%;
+  height: 120%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  content: "";
+  -webkit-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  -webkit-transform: perspective(5px) rotateX(2deg);
+  -webkit-transform-origin: bottom;
+  -moz-transform: perspective(5px) rotateX(2deg);
+  -moz-transform-origin: bottom;
+  transform: perspective(5px) rotateX(2deg);
+  transform-origin: bottom;
+}
+#cssmenu > ul > li:hover > a:after,
+#cssmenu > ul > li:hover > a:after,
+#cssmenu > ul > li > a:hover:after {
+  background: blue;
+}
